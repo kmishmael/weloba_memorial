@@ -5,11 +5,11 @@ const lightbox = new PhotoSwipeLightbox({
     gallery: "#my-gallery",
     children: "a",
     pswpModule: () => import("photoswipe"),
-    showHideAnimationType: 'zoom', // Options: 'fade', 'zoom', 'none'
-    zoomAnimationDuration: 333,    // Duration in ms (default is 333ms)
-    showAnimationDuration: 333,    // Duration for show animation
-    hideAnimationDuration: 333,    // Duration for hide animation
-    easing: 'cubic-bezier(0.4, 0, 0.2, 1)', // CSS easing
+    showHideAnimationType: 'zoom',
+    zoomAnimationDuration: 333,
+    showAnimationDuration: 333,
+    hideAnimationDuration: 333,
+    easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
 });
 
 lightbox.on("uiRegister", function () {
@@ -20,7 +20,6 @@ lightbox.on("uiRegister", function () {
             isButton: true,
             tagName: "a",
 
-            // SVG with outline
             html: {
                 isCustomSVG: true,
                 inner:

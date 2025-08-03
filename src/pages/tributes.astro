@@ -4,8 +4,10 @@ import tributesData from "../assets/data/tributes.json"
 import { Heart, PenTool } from "@lucide/astro"
 import Layout from "../layouts/Layout.astro"
 
-
 const tributes = tributesData.tributes || []
+
+const tributeForm = "https://forms.gle/FJ3NsxrMQ4YCyTwg9";
+
 ---
 
 <Layout>
@@ -96,7 +98,8 @@ const tributes = tributesData.tributes || []
               </div>
               <OrnamentalDivider className="mb-4" />
               <a
-                href="/tributes"
+                href={tributeForm}
+                target="_blank"
                 class="mx-auto flex w-fit items-center justify-center border border-amber-400 px-8 py-2 text-amber-300 hover:bg-amber-400 hover:text-gray-900 transition-colors rounded-lg font-semibold text-sm sm:text-base"
               >
                 <PenTool class="mr-2 h-5 w-5" />

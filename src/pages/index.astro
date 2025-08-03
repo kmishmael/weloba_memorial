@@ -24,6 +24,8 @@ const galleryImagesWithMetadata = galleryImages.map((image) => {
     metadata: imageImport(),
   }
 })
+
+const tributeForm = "https://forms.gle/FJ3NsxrMQ4YCyTwg9";
 ---
 
 <Layout>
@@ -90,7 +92,7 @@ const galleryImagesWithMetadata = galleryImages.map((image) => {
                 <button
                   class="bg-primary text-primary-foreground hover:bg-primary/90 h-12 rounded-md border border-amber-500/50 bg-amber-700/80 px-8 py-2 text-base text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl"
                 >
-                  <a href="/tributes" class="flex items-center">
+                  <a href={tributeForm} target="_blank" class="flex items-center">
                     <Heart class="mr-2 h-5 w-5" />
                     Leave a Tribute
                   </a>
@@ -165,7 +167,7 @@ const galleryImagesWithMetadata = galleryImages.map((image) => {
           <button
             class="bg-primary text-primary-foreground hover:bg-primary/90border h-11 border-amber-500/50 bg-amber-700/80 px-4 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl"
           >
-            <a href="/tributes" class="flex items-center">
+            <a href={tributeForm} target="_blank" class="flex items-center">
               <PenTool class="mr-2 h-5 w-5" />
               Leave a Tribute
             </a>
@@ -208,7 +210,7 @@ const galleryImagesWithMetadata = galleryImages.map((image) => {
               <Heart class="mx-auto mb-4 h-16 w-16 text-amber-400/50" />
               <p class="mb-6 text-lg text-amber-200">Be the first to share a tribute</p>
               <button class="h-11 rounded-md border border-amber-500/50 bg-amber-700/80 px-8 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl">
-                <a href="/tributes" class="flex items-center">
+                <a href={tributeForm} target="_blank" class="flex items-center">
                   <PenTool class="mr-2 h-5 w-5" />
                   Leave a Tribute
                 </a>
