@@ -1,0 +1,86 @@
+---
+import OrnamentalDivider from "../components/OrnamentalDivider.astro"
+import tributesData from "../assets/data/tributes.json"
+import { Heart } from "@lucide/astro"
+
+const tributes = tributesData.tributes || [];
+---
+
+<div class="min-h-screen bg-gradient-to-br">
+  <div class="relative px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 text-center sm:mb-16">
+        <h1
+          class="elegant-script mb-6 text-4xl font-bold text-amber-800 drop-shadow-sm sm:text-5xl md:text-6xl"
+        >
+          Heartfelt Tributes
+        </h1>
+        <OrnamentalDivider className="mb-6" />
+        <p class="mx-auto max-w-3xl font-serif text-lg leading-relaxed text-amber-700 sm:text-xl">
+          Messages from those whose lives were touched by Joseph's kindness, love, and lasting
+          legacy
+        </p>
+      </div>
+
+      <div class="space-y-6 sm:space-y-8">
+        {
+          tributes.length > 0 ? (
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {tributes.map((tribute) => (
+                <div
+                  class="transform rounded-2xl border-amber-600/70 bg-gradient-to-br from-amber-900/90 to-orange-900/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                >
+                  <div class="p-6 sm:p-8">
+                    <div class="mb-6 flex items-center">
+                      <Heart class="mr-3 h-5 w-5 flex-shrink-0 text-amber-400" />
+                      <div class="min-w-0">
+                        <h3 class="elegant-script truncate text-lg font-semibold text-amber-100 sm:text-xl">
+                          {tribute.name}
+                        </h3>
+                        {tribute.relationship && (
+                          <p class="font-serif text-sm text-amber-300">{tribute.relationship}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div class="mb-4">
+                      <p class="font-serif text-sm leading-relaxed text-amber-100 sm:text-base">
+                        "{tribute.message}"
+                      </p>
+                    </div>
+
+                    <div class="flex justify-end">
+                      <p class="font-serif text-xs text-amber-400">
+                        {new Date(tribute.created_at).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div class="py-16 text-center">
+              <div class="mx-auto max-w-2xl rounded-2xl border border-amber-600/50 bg-gradient-to-br from-amber-900/95 to-orange-900/90 p-8 shadow-xl backdrop-blur-sm sm:p-12">
+                <div class="mb-6">
+                  <Heart class="mx-auto mb-4 h-12 w-12 text-amber-400" />
+                  <h3 class="elegant-script mb-4 text-2xl font-semibold text-amber-100 sm:text-3xl">
+                    Share Your Memories
+                  </h3>
+                  <OrnamentalDivider className="mb-4" />
+                </div>
+                <p class="font-serif text-base leading-relaxed text-amber-200 sm:text-lg">
+                  Be the first to share a tribute. Your heartfelt message will be reviewed and
+                  published to honor Joseph's cherished memory.
+                </p>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>
