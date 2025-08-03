@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 
-/* Custom antique patterns and decorative elements */
 .antique-paper {
   background-image: radial-gradient(
       circle at 20% 50%,

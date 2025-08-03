@@ -32,31 +32,42 @@ const galleryImagesWithMetadata = galleryImages.map((image) => {
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+      <div
+        id="my-gallery"
+        class="pswp-gallery gallery grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+      >
         {
           galleryImagesWithMetadata.length > 0 ? (
-            galleryImagesWithMetadata.map((image, index) => (
-              <VintageCard className="transform overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <div class="p-0">
-                  <div class="relative">
-                    <Image
-                      src={image.metadata}
-                      alt={image.alt_text || "Gallery image"}
-                      loading={index < 9 ? "eager" : "lazy"}
-                      densities={[1.5, 2]}
-                      width={360}
-                      height={270}
-                      format="avif"
-                      class="h-[270px] w-full object-cover"
-                    />
+            galleryImagesWithMetadata.map(async (image, index) => (
+              <a
+                href={(await image.metadata).default.src}
+                data-cropped="true"
+                data-pswp-width={(await image.metadata).default.width}
+                data-pswp-height={(await image.metadata).default.height}
+                class="gallery-item group relative"
+              >
+                <VintageCard className="transform overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <div class="p-0">
+                    <div class="relative">
+                      <Image
+                        src={image.metadata}
+                        alt={image.alt_text || "Gallery image"}
+                        loading={index < 9 ? "eager" : "lazy"}
+                        densities={[1.5, 2]}
+                        width={400}
+                        height={320}
+                        format="avif"
+                        class="h-[320px] w-full object-cover"
+                      />
+                    </div>
+                    <div class="pt-3 sm:pt-4">
+                      <p class="text-center text-sm leading-relaxed text-stone-600">
+                        {image.caption || ""}
+                      </p>
+                    </div>
                   </div>
-                  <div class="pt-3 sm:pt-4">
-                    <p class="text-center text-sm leading-relaxed text-stone-600">
-                      {image.caption || "A precious memory"}
-                    </p>
-                  </div>
-                </div>
-              </VintageCard>
+                </VintageCard>
+              </a>
             ))
           ) : (
             <div class="col-span-full py-12 text-center">
@@ -82,4 +93,8 @@ const galleryImagesWithMetadata = galleryImages.map((image) => {
       </div>
     </div>
   </div>
+
+  <script>
+    import "../lib/loadGallery.ts"
+  </script>
 </Layout>
