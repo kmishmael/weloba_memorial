@@ -1,38 +1,35 @@
 ---
-import "../styles/global.css";
+import "../styles/global.css"
 
-import { ClientRouter } from "astro:transitions";
+import { ClientRouter } from "astro:transitions"
 
-import Header from "../components/shared/Header.astro";
-import Footer from "../components/shared/Footer.astro";
-import { AstroSeo, type AstroSeoProps } from "@astrolib/seo";
-import { fade } from "astro:transitions";
+import Header from "../components/shared/Header.astro"
+import Footer from "../components/shared/Footer.astro"
+import { AstroSeo, type AstroSeoProps } from "@astrolib/seo"
+import { fade } from "astro:transitions"
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
 interface Props {
-  seoConfig?: AstroSeoProps;
-  pageTitle?: string;
-
+  seoConfig?: AstroSeoProps
+  pageTitle?: string
 }
 
-const { seoConfig } = Astro.props;
+const { seoConfig } = Astro.props
 
-const site = Astro.site?.href;
+const site = Astro.site?.href
 
 // Canonical will be set by astro, just ensure you define site url in astro.config
 const defaultSeoConfig: AstroSeoProps = {
   title: "Joseph Weloba - One of a Kind | Memorial",
   noindex: false,
-  description:
-    "A memorial website celebrating the life and legacy of Joseph Weloba",
+  description: "A memorial website celebrating the life and legacy of Joseph Weloba",
   openGraph: {
     url: site,
     title: "Joseph Weloba - One of a Kind | Memorial",
     type: "website",
     site_name: "Joseph Weloba - One of a Kind | Memorial",
-    description:
-      "A memorial website celebrating the life and legacy of Joseph Weloba",
+    description: "A memorial website celebrating the life and legacy of Joseph Weloba",
     images: [
       {
         url: `https://josephweloba.com/weloba.png`,
@@ -44,10 +41,8 @@ const defaultSeoConfig: AstroSeoProps = {
   twitter: {
     cardType: "summary",
   },
-  additionalMetaTags: [
-    { name: "og:logo", content: `https://josephweloba.com/weloba.png` },
-  ],
-};
+  additionalMetaTags: [{ name: "og:logo", content: `https://josephweloba.com/weloba.png` }],
+}
 
 const parsedSeoConfig = {
   ...defaultSeoConfig,
@@ -56,26 +51,15 @@ const parsedSeoConfig = {
     ...defaultSeoConfig.openGraph,
     ...seoConfig?.openGraph,
   },
-};
+}
 ---
 
 <html lang="en" transition:animate={fade({ duration: "0.2s" })}>
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Fallback if svg is not supported -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-
-    <!-- Legacy support -->
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-
-    <!-- IOS Devices -->
-    <link rel="apple-touch-icon" href="/favicon.ico" />
 
     <link rel="canonical" href={canonicalURL} />
 
@@ -83,11 +67,10 @@ const parsedSeoConfig = {
 
     <AstroSeo {...parsedSeoConfig} />
 
-  
-  <ClientRouter />
-
+    <ClientRouter />
+  </head>
   <body class="font-sans">
-    <div class="min-h-screen bg-gradient-to-br bg-amber-50">
+    <div class="min-h-screen bg-amber-50 bg-gradient-to-br">
       <Header />
       <slot />
       <Footer />

@@ -1,71 +1,66 @@
 ---
 import { Heart, Menu, X } from "@lucide/astro"
 
-const { pathname } = Astro.url;
+const { pathname } = Astro.url
 
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Gallery", href: "/gallery" },
   { name: "Tributes", href: "/tributes" },
-];
+]
 ---
 
-<nav class="text-white bg-black top-0 left-0 right-0 z-50 backdrop-blur-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
+<nav class="top-0 right-0 left-0 z-50 bg-black text-white backdrop-blur-sm">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
       <a href="/" class="flex items-center space-x-2">
-        <Heart class="h-6 w-6 text-amber-600" />h>
+        <Heart class="h-6 w-6 text-amber-600" />
+        <span class="text-lg font-semibold">Joseph Weloba</span>
       </a>
-      <span class="font-semibold text-lg">Joseph Weloba</span>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden space-x-8 md:flex">
+        {
+          navigation.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                "py-2 text-sm font-medium transition-colors hover:text-amber-600",
+                pathname === item.href
+                  ? "border-b-2 border-amber-600 text-amber-600"
+                  : "text-neutral-100",
+              ]}
+            >
+              {item.name}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="rounded-md p-2 text-stone-600 transition-colors hover:bg-stone-100 hover:text-amber-600 md:hidden"
+        aria-label="Toggle menu"
+      >
+        <Menu id="menu-icon" class="h-6 w-6" />
+        <X id="close-icon" class="h-6 w-6" />
+      </button>
     </div>
-
-    <!-- Desktop Navigation -->
-    <div class="hidden md:flex space-x-8">
-      {
-        navigation.map((item) => (
-          <a
-            href={item.href}
-            class:list={[
-              "text-sm font-medium transition-colors hover:text-rose-600 py-2",
-              pathname === item.href
-                ? "text-rose-600 border-b-2 border-rose-600"
-                : "text-neutral-100",
-            ]}
-          >
-            {item.name}
-          </a>
-        ))
-      }
-    </div>
-
-    <!-- Mobile Menu Button -->
-    <button
-      id="mobile-menu-button"
-      class="md:hidden p-2 rounded-md text-stone-600 hover:text-rose-600 hover:bg-stone-100 transition-colors"
-      aria-label="Toggle menu"
-    >
-
-      <Menu id="menu-icon" class="h-6 w-6" />
-      <X  id="close-icon" class="h-6 w-6" /> 
-     
-    </button>
   </div>
 
   <!-- Mobile Navigation Menu -->
-  <div
-    id="mobile-menu"
-    class="md:hidden border-t border-stone-200 bg-white hidden"
-  >
-    <div class="px-2 pt-2 pb-3 space-y-1">
+  <div id="mobile-menu" class="hidden border-t border-stone-200 bg-white md:hidden">
+    <div class="space-y-1 px-2 pt-2 pb-3">
       {
         navigation.map((item) => (
           <a
             href={item.href}
             class:list={[
-              "block px-3 py-3 rounded-md text-base font-medium transition-colors mobile-nav-link",
+              "mobile-nav-link block rounded-md px-3 py-3 text-base font-medium transition-colors",
               pathname === item.href
-                ? "text-rose-600 bg-rose-50 border-l-4 border-rose-600"
-                : "text-stone-600 hover:text-rose-600 hover:bg-stone-50",
+                ? "border-l-4 border-amber-600 bg-amber-50 text-amber-600"
+                : "text-stone-600 hover:bg-stone-50 hover:text-amber-600",
             ]}
           >
             {item.name}
@@ -77,40 +72,40 @@ const navigation = [
 </nav>
 
 <script>
-  const menuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const menuIcon = document.getElementById("menu-icon");
-  const closeIcon = document.getElementById("close-icon");
-  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+  const menuButton = document.getElementById("mobile-menu-button")
+  const mobileMenu = document.getElementById("mobile-menu")
+  const menuIcon = document.getElementById("menu-icon")
+  const closeIcon = document.getElementById("close-icon")
+  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link")
 
-  let isOpen = false;
+  let isOpen = false
 
   function toggleMenu() {
-    isOpen = !isOpen;
+    isOpen = !isOpen
 
     if (isOpen) {
-      mobileMenu?.classList.remove("hidden");
-      menuIcon?.classList.add("hidden");
-      closeIcon?.classList.remove("hidden");
+      mobileMenu?.classList.remove("hidden")
+      menuIcon?.classList.add("hidden")
+      closeIcon?.classList.remove("hidden")
     } else {
-      mobileMenu?.classList.add("hidden");
-      menuIcon?.classList.remove("hidden");
-      closeIcon?.classList.add("hidden");
+      mobileMenu?.classList.add("hidden")
+      menuIcon?.classList.remove("hidden")
+      closeIcon?.classList.add("hidden")
     }
   }
 
   function closeMenu() {
-    isOpen = false;
-    mobileMenu?.classList.add("hidden");
-    menuIcon?.classList.remove("hidden");
-    closeIcon?.classList.add("hidden");
+    isOpen = false
+    mobileMenu?.classList.add("hidden")
+    menuIcon?.classList.remove("hidden")
+    closeIcon?.classList.add("hidden")
   }
 
-  menuButton?.addEventListener("click", toggleMenu);
+  menuButton?.addEventListener("click", toggleMenu)
 
   mobileNavLinks.forEach((link) => {
-    link.addEventListener("click", closeMenu);
-  });
+    link.addEventListener("click", closeMenu)
+  })
 
   document.addEventListener("click", (e) => {
     if (
@@ -118,7 +113,7 @@ const navigation = [
       !menuButton?.contains(e.target as Node) &&
       !mobileMenu?.contains(e.target as Node)
     ) {
-      closeMenu();
+      closeMenu()
     }
-  });
+  })
 </script>

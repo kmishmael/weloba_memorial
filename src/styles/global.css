@@ -1,1 +1,194 @@
 @import "tailwindcss";
+
+
+/* Custom antique patterns and decorative elements */
+.antique-paper {
+  background-image: radial-gradient(
+      circle at 20% 50%,
+      rgba(139, 69, 19, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(160, 82, 45, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 80%,
+      rgba(210, 180, 140, 0.02) 0%,
+      transparent 50%
+    );
+  background-size: 300px 300px, 200px 200px, 400px 400px;
+}
+
+.vintage-border {
+  position: relative;
+}
+
+.vintage-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    rgba(139, 69, 19, 0.1) 0%,
+    rgba(160, 82, 45, 0.05) 25%,
+    rgba(210, 180, 140, 0.1) 50%,
+    rgba(160, 82, 45, 0.05) 75%,
+    rgba(139, 69, 19, 0.1) 100%
+  );
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.decorative-flourish {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='20' viewBox='0 0 60 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 10c-5-5-15-5-20 0s-5 15 0 20c5-5 15-5 20 0s15-5 20 0-5-15 0-20c-5 5-15 5-20 0z' fill='%23d4af37' fill-opacity='0.1'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center;
+  height: 20px;
+  margin: 2rem 0;
+}
+
+.handwriting-style {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  position: relative;
+}
+
+.handwriting-style::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(139, 69, 19, 0.3) 20%,
+    rgba(139, 69, 19, 0.5) 50%,
+    rgba(139, 69, 19, 0.3) 80%,
+    transparent 100%
+  );
+}
+
+.elegant-script {
+  font-family: "Georgia", "Palatino", "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.ornamental-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.ornamental-divider::before,
+.ornamental-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(139, 69, 19, 0.3),
+    transparent
+  );
+}
+
+.ornamental-divider::before {
+  margin-right: 1rem;
+}
+
+.ornamental-divider::after {
+  margin-left: 1rem;
+}
+
+.vintage-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(250, 248, 246, 0.95) 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 69, 19, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(139, 69, 19, 0.1),
+    0 2px 4px -1px rgba(139, 69, 19, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.pen-stroke {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='4' viewBox='0 0 100 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2c10-1 20 1 30 0s20-1 30 0 20 1 30 0 10-1 10 0' stroke='%23d4af37' stroke-width='0.5' fill='none' opacity='0.6'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom;
+  padding-bottom: 8px;
+}
+
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.floating-element {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+.parchment-texture {
+  background-image: radial-gradient(
+      circle at 25% 25%,
+      rgba(139, 69, 19, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(160, 82, 45, 0.015) 0%,
+      transparent 50%
+    ),
+    linear-gradient(45deg, rgba(210, 180, 140, 0.01) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(210, 180, 140, 0.01) 25%, transparent 25%);
+  background-size: 200px 200px, 150px 150px, 20px 20px, 20px 20px;
+}
+
+.font-serif {
+  font-family: "Georgia", "Times New Roman", "Times", serif;
+}
+
+.font-elegant {
+  font-family: "Georgia", "Palatino", "Times New Roman", serif;
+  font-weight: 500;
+}
+
+.font-script {
+  font-family: "Brush Script MT", "Lucida Handwriting", "Apple Chancery",
+    cursive;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (max-width: 640px) {
+  .handwriting-style {
+    font-size: 0.95em;
+    line-height: 1.6;
+  }
+
+  .elegant-script {
+    font-size: 0.95em;
+    line-height: 1.5;
+  }
+}

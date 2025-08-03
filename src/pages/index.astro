@@ -4,11 +4,25 @@ import { Image } from "astro:assets"
 import allTributes from "../assets/data/tributes.json"
 import allGalleryImages from "../assets/data/gallery.json"
 import { Heart, Camera, ArrowRight, PenTool } from "@lucide/astro"
+import weloba6 from "../assets//weloba-6.jpg"
 
 import OrnamentalDivider from "../components/OrnamentalDivider.astro"
 
 const tributes = (allTributes.tributes || []).slice(0, 3)
 const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
+
+const galleryImagesGlobs = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/gallery/*.{jpeg,jpg,png,gif,webp}"
+);
+
+const galleryImagesWithMetadata = galleryImages.map(async(image) => {
+  const imageImport = galleryImagesGlobs[`/src/assets/gallery/${image.image_url}`];
+  return {
+	...image,
+	metadata: (await imageImport()).default,
+  };
+});
+
 ---
 
 <Layout>
@@ -26,10 +40,13 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
             <div class="order-1 flex flex-col items-center justify-center lg:order-2">
               <div class="relative md:mb-6">
                 <Image
-                  src="/weloba-6.jpg"
+                  src={weloba6}
                   alt="Joseph Weloba"
                   width={300}
                   height={300}
+				  loading="eager"
+				  format="avif"
+				  quality={100}
                   class="h-48 w-48 rounded-full border-4 border-amber-200/50 object-cover shadow-2xl grayscale sm:h-56 sm:w-56 md:h-64 md:w-64 md:rounded-2xl lg:h-72 lg:w-72 xl:h-92 xl:w-92"
                 />
               </div>
@@ -71,7 +88,7 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
                 <button
                   class="bg-primary text-primary-foreground hover:bg-primary/90 h-12 rounded-md border border-amber-500/50 bg-amber-700/80 px-8 py-2 text-base text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl"
                 >
-                  <a href="/tributes">
+                  <a href="/tributes" class="flex items-center">
                     <Heart class="mr-2 h-5 w-5" />
                     Leave a Tribute
                   </a>
@@ -79,7 +96,7 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
                 <button
                   class="border-input bg-background hover:bg-accent hover:text-accent-foreground h-12 rounded-md border border-amber-400/50 bg-amber-800/20 px-8 text-base text-amber-200 backdrop-blur-sm transition-all duration-300 hover:bg-amber-800/30 hover:text-amber-100"
                 >
-                  <a href="/gallery">
+                  <a href="/gallery" class="flex items-center">
                     <Camera class="mr-2 h-5 w-5" />
                     View Gallery
                   </a>
@@ -146,7 +163,7 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
           <button
             class="bg-primary text-primary-foreground hover:bg-primary/90border h-11 border-amber-500/50 bg-amber-700/80 px-4 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl"
           >
-            <a href="/tributes">
+            <a href="/tributes" class="flex items-center">
               <PenTool class="mr-2 h-5 w-5" />
               Leave a Tribute
             </a>
@@ -159,7 +176,7 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
               <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {tributes.map((tribute) => (
                   <div class="bg-card text-card-foreground rounded-lg border border-amber-600/70 bg-gradient-to-br from-amber-900/90 to-orange-900/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
-                    <div class="pt-0 p-6">
+                    <div class="p-6">
                       <div class="mb-4 flex items-center">
                         <Heart class="mr-2 h-5 w-5 text-amber-400" />
                         <div>
@@ -169,7 +186,7 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
                           )}
                         </div>
                       </div>
-                      <p class="line-clamp-4 text-sm leading-relaxed text-amber-100">
+                      <p class="text-sm leading-relaxed text-amber-100">
                         "{tribute.message}"
                       </p>
                     </div>
@@ -179,7 +196,7 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
 
               <div class="space-y-4 text-center">
                 <button class="border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 rounded-md border border-amber-400 bg-amber-100/80 px-8 text-amber-700 backdrop-blur-sm transition-all duration-300 hover:bg-amber-200/90 hover:text-amber-800">
-                  <a href="/tributes">
+                  <a href="/tributes" class="flex items-center justify-center">
                     View All Tributes
                     <ArrowRight class="ml-2 h-4 w-4" />
                   </a>
@@ -190,8 +207,8 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
             <div class="py-12 text-center">
               <Heart class="mx-auto mb-4 h-16 w-16 text-amber-400/50" />
               <p class="mb-6 text-lg text-amber-200">Be the first to share a tribute</p>
-              <button class="h-11 border border-amber-500/50 bg-amber-700/80 px-8 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl">
-                <a href="/tributes">
+              <button class="h-11 border rounded-md border-amber-500/50 bg-amber-700/80 px-8 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl">
+                <a href="/tributes" class="flex items-center">
                   <PenTool class="mr-2 h-5 w-5" />
                   Leave a Tribute
                 </a>
@@ -239,7 +256,7 @@ const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
 
               <div class="text-center">
                 <button class="h-11 rounded-md border border-amber-500/50 bg-amber-700/80 px-8 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl">
-                  <a href="/gallery">
+                  <a href="/gallery" class="flex items-center justify-center">
                     <Camera class="mr-2 h-4 w-4" />
                     View Full Gallery
                     <ArrowRight class="ml-2 h-4 w-4" />
