@@ -9,20 +9,21 @@ import weloba6 from "../assets//weloba-6.jpg"
 import OrnamentalDivider from "../components/OrnamentalDivider.astro"
 
 const tributes = (allTributes.tributes || []).slice(0, 3)
-const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
+const galleryImages = (
+  allGalleryImages.gallery.sort((a, b) => b.order_index - a.order_index) || []
+).slice(0, 8)
 
 const galleryImagesGlobs = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/gallery/*.{jpeg,jpg,png,gif,webp}"
-);
+)
 
-const galleryImagesWithMetadata = galleryImages.map(async(image) => {
-  const imageImport = galleryImagesGlobs[`/src/assets/gallery/${image.image_url}`];
+const galleryImagesWithMetadata = galleryImages.map((image) => {
+  const imageImport = galleryImagesGlobs[`/src/assets/gallery/${image.image_url}`]
   return {
-	...image,
-	metadata: (await imageImport()).default,
-  };
-});
-
+    ...image,
+    metadata: imageImport(),
+  }
+})
 ---
 
 <Layout>
@@ -44,9 +45,10 @@ const galleryImagesWithMetadata = galleryImages.map(async(image) => {
                   alt="Joseph Weloba"
                   width={300}
                   height={300}
-				  loading="eager"
-				  format="avif"
-				  quality={100}
+				  densities={[1.5, 2]}
+				  priority
+                  format="avif"
+                  quality={100}
                   class="h-48 w-48 rounded-full border-4 border-amber-200/50 object-cover shadow-2xl grayscale sm:h-56 sm:w-56 md:h-64 md:w-64 md:rounded-2xl lg:h-72 lg:w-72 xl:h-92 xl:w-92"
                 />
               </div>
@@ -186,9 +188,7 @@ const galleryImagesWithMetadata = galleryImages.map(async(image) => {
                           )}
                         </div>
                       </div>
-                      <p class="text-sm leading-relaxed text-amber-100">
-                        "{tribute.message}"
-                      </p>
+                      <p class="text-sm leading-relaxed text-amber-100">"{tribute.message}"</p>
                     </div>
                   </div>
                 ))}
@@ -207,7 +207,7 @@ const galleryImagesWithMetadata = galleryImages.map(async(image) => {
             <div class="py-12 text-center">
               <Heart class="mx-auto mb-4 h-16 w-16 text-amber-400/50" />
               <p class="mb-6 text-lg text-amber-200">Be the first to share a tribute</p>
-              <button class="h-11 border rounded-md border-amber-500/50 bg-amber-700/80 px-8 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl">
+              <button class="h-11 rounded-md border border-amber-500/50 bg-amber-700/80 px-8 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl">
                 <a href="/tributes" class="flex items-center">
                   <PenTool class="mr-2 h-5 w-5" />
                   Leave a Tribute
@@ -232,16 +232,19 @@ const galleryImagesWithMetadata = galleryImages.map(async(image) => {
         </div>
 
         {
-          galleryImages.length > 0 ? (
+          galleryImagesWithMetadata.length > 0 ? (
             <>
               <div class="mb-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-                {galleryImages.map((image) => (
+                {galleryImagesWithMetadata.map((image) => (
                   <div class="group relative aspect-square overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
                     <Image
-                      src={image.image_url}
+                      src={image.metadata}
                       alt={image.alt_text || "Gallery image"}
-                      width={300}
-                      height={300}
+                      format="avif"
+                      loading="eager"
+					  densities={[1.5, 2]}
+					  width={360}
+					  height={270}
                       class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

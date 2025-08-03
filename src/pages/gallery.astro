@@ -5,7 +5,19 @@ import VintageCard from "../components/VintageCard.astro"
 import { Image } from "astro:assets"
 import Layout from "../layouts/Layout.astro"
 
-const galleryImages = galleryImagesData.gallery || []
+const galleryImages = galleryImagesData.gallery.sort((a, b) => b.order_index - a.order_index) || []
+
+const galleryImagesGlobs = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/gallery/*.{jpeg,jpg,png,gif,webp}"
+)
+
+const galleryImagesWithMetadata = galleryImages.map((image) => {
+  const imageImport = galleryImagesGlobs[`/src/assets/gallery/${image.image_url}`]
+  return {
+    ...image,
+    metadata: imageImport(),
+  }
+})
 ---
 
 <Layout>
@@ -22,21 +34,23 @@ const galleryImages = galleryImagesData.gallery || []
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {
-          galleryImages.length > 0 ? (
-            galleryImages.map((image) => (
+          galleryImagesWithMetadata.length > 0 ? (
+            galleryImagesWithMetadata.map((image, index) => (
               <VintageCard className="transform overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                 <div class="p-0">
-                  <div class="relative aspect-[4/3]">
+                  <div class="relative">
                     <Image
-                      src={image.image_url}
+                      src={image.metadata}
                       alt={image.alt_text || "Gallery image"}
-                      width={400}
-                      loading="lazy"
-                      height={300}
-                      class="object-cover"
+                      loading={index < 9 ? "eager" : "lazy"}
+                      densities={[1.5, 2]}
+                      width={360}
+                      height={270}
+                      format="avif"
+                      class="h-[270px] w-full object-cover"
                     />
                   </div>
-                  <div class="p-3 sm:p-4">
+                  <div class="pt-3 sm:pt-4">
                     <p class="text-center text-sm leading-relaxed text-stone-600">
                       {image.caption || "A precious memory"}
                     </p>
