@@ -1,0 +1,14 @@
+---
+interface Props {
+  className?: string
+}
+
+const { className } = Astro.props
+---
+
+<div class:list={[`vintage-card relative rounded-lg p-6`, className]}>
+  <div class="antique-paper absolute inset-0 rounded-lg"></div>
+  <div class="relative z-10">
+    <slot />
+  </div>
+</div>

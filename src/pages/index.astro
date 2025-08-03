@@ -1,8 +1,266 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro"
+import { Image } from "astro:assets"
+import allTributes from "../assets/data/tributes.json"
+import allGalleryImages from "../assets/data/gallery.json"
+import { Heart, Camera, ArrowRight, PenTool } from "@lucide/astro"
 
+import OrnamentalDivider from "../components/OrnamentalDivider.astro"
+
+const tributes = (allTributes.tributes || []).slice(0, 3)
+const galleryImages = (allGalleryImages.gallery || []).slice(0, 8)
 ---
 
 <Layout>
+  <div class="min-h-screen">
+    <section class="relative min-h-screen overflow-hidden">
+      <video autoplay loop muted playsinline class="absolute inset-0 h-full w-full object-cover">
+        <source src="/videos/video_cover.mp4" type="video/mp4" />
+      </video>
 
+      <div class="absolute inset-0 bg-black/30"></div>
+
+      <div class="relative z-10 flex min-h-screen items-center px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
+        <div class="mx-auto w-full max-w-6xl">
+          <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            <div class="order-1 flex flex-col items-center justify-center lg:order-2">
+              <div class="relative md:mb-6">
+                <Image
+                  src="/weloba-6.jpg"
+                  alt="Joseph Weloba"
+                  width={300}
+                  height={300}
+                  class="h-48 w-48 rounded-full border-4 border-amber-200/50 object-cover shadow-2xl grayscale sm:h-56 sm:w-56 md:h-64 md:w-64 md:rounded-2xl lg:h-72 lg:w-72 xl:h-92 xl:w-92"
+                />
+              </div>
+              <div class="hidden italic md:block">
+                <h2 class="text-xl font-semibold text-amber-200">❝Jose - One of a Kind❞</h2>
+              </div>
+            </div>
+
+            <div class="order-2 text-center lg:order-1 lg:text-left">
+              <h1
+                class="elegant-script mb-4 text-4xl leading-tight font-bold text-amber-100 drop-shadow-lg sm:text-5xl md:text-6xl lg:text-7xl"
+              >
+                Joseph Weloba
+              </h1>
+
+              <div class="mb-8">
+                <p
+                  class="font-serif text-2xl tracking-wider text-amber-200 drop-shadow-md sm:text-3xl md:text-4xl lg:text-5xl"
+                >
+                  1971 — 2025
+                </p>
+              </div>
+
+              <div class="mb-8 lg:mb-10">
+                <p
+                  class="mb-3 font-serif text-lg leading-relaxed text-amber-100 italic drop-shadow-md sm:text-xl lg:text-2xl"
+                >
+                  "Forever in our hearts."
+                </p>
+                <p class="mb-2 font-serif text-base text-amber-200 drop-shadow-md lg:text-lg">
+                  Absent from the body, present with the Lord
+                </p>
+                <p class="font-serif text-sm text-amber-300 drop-shadow-sm lg:text-base">
+                  (2 Corinthians 5:8)
+                </p>
+              </div>
+
+              <div class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+                <button
+                  class="bg-primary text-primary-foreground hover:bg-primary/90 h-12 rounded-md border border-amber-500/50 bg-amber-700/80 px-8 py-2 text-base text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl"
+                >
+                  <a href="/tributes">
+                    <Heart class="mr-2 h-5 w-5" />
+                    Leave a Tribute
+                  </a>
+                </button>
+                <button
+                  class="border-input bg-background hover:bg-accent hover:text-accent-foreground h-12 rounded-md border border-amber-400/50 bg-amber-800/20 px-8 text-base text-amber-200 backdrop-blur-sm transition-all duration-300 hover:bg-amber-800/30 hover:text-amber-100"
+                >
+                  <a href="/gallery">
+                    <Camera class="mr-2 h-5 w-5" />
+                    View Gallery
+                  </a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div class="mx-auto max-w-4xl text-center">
+        <div
+          class="rounded-2xl border border-amber-600/30 bg-gradient-to-br from-amber-900/90 to-orange-900/80 p-8 shadow-2xl backdrop-blur-sm"
+        >
+          <h2 class="mb-6 font-serif text-2xl font-bold text-amber-100 sm:text-3xl">
+            About Joseph
+          </h2>
+
+          <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div class="text-center">
+              <div class="mb-2 text-amber-200">
+                <span class="text-lg font-semibold">54 years old</span>
+              </div>
+              <p class="text-sm text-amber-300">Age</p>
+            </div>
+
+            <div class="text-center">
+              <div class="mb-2 text-amber-200">
+                <span class="text-lg font-semibold">April 24, 1971</span>
+              </div>
+              <p class="text-sm text-amber-300">Born</p>
+            </div>
+
+            <div class="text-center">
+              <div class="mb-2 text-amber-200">
+                <span class="text-lg font-semibold">June 12, 2025</span>
+              </div>
+              <p class="text-sm text-amber-300">Transitioned to Glory</p>
+            </div>
+          </div>
+
+          <p class="font-serif text-base leading-relaxed text-amber-100 italic sm:text-lg">
+            Your memory will forever be in our hearts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-8 text-center sm:mb-12">
+          <h2 class="mb-4 font-serif text-3xl font-bold text-amber-700 sm:text-4xl">
+            Heartfelt Tributes
+          </h2>
+          <OrnamentalDivider className="mb-6" />
+          <p class="mx-auto max-w-2xl text-lg text-amber-600">
+            Messages from those whose lives were touched by Joseph's kindness and love
+          </p>
+        </div>
+
+        <div class="mb-6 flex w-full justify-end">
+          <button
+            class="bg-primary text-primary-foreground hover:bg-primary/90border h-11 border-amber-500/50 bg-amber-700/80 px-4 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl"
+          >
+            <a href="/tributes">
+              <PenTool class="mr-2 h-5 w-5" />
+              Leave a Tribute
+            </a>
+          </button>
+        </div>
+
+        {
+          tributes.length > 0 ? (
+            <>
+              <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {tributes.map((tribute) => (
+                  <div class="bg-card text-card-foreground rounded-lg border border-amber-600/70 bg-gradient-to-br from-amber-900/90 to-orange-900/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
+                    <div class="pt-0 p-6">
+                      <div class="mb-4 flex items-center">
+                        <Heart class="mr-2 h-5 w-5 text-amber-400" />
+                        <div>
+                          <h3 class="text-lg font-semibold text-amber-100">{tribute.name}</h3>
+                          {tribute.relationship && (
+                            <p class="text-sm text-amber-300">{tribute.relationship}</p>
+                          )}
+                        </div>
+                      </div>
+                      <p class="line-clamp-4 text-sm leading-relaxed text-amber-100">
+                        "{tribute.message}"
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div class="space-y-4 text-center">
+                <button class="border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 rounded-md border border-amber-400 bg-amber-100/80 px-8 text-amber-700 backdrop-blur-sm transition-all duration-300 hover:bg-amber-200/90 hover:text-amber-800">
+                  <a href="/tributes">
+                    View All Tributes
+                    <ArrowRight class="ml-2 h-4 w-4" />
+                  </a>
+                </button>
+              </div>
+            </>
+          ) : (
+            <div class="py-12 text-center">
+              <Heart class="mx-auto mb-4 h-16 w-16 text-amber-400/50" />
+              <p class="mb-6 text-lg text-amber-200">Be the first to share a tribute</p>
+              <button class="h-11 border border-amber-500/50 bg-amber-700/80 px-8 py-2 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl">
+                <a href="/tributes">
+                  <PenTool class="mr-2 h-5 w-5" />
+                  Leave a Tribute
+                </a>
+              </button>
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-8 text-center sm:mb-12">
+          <h2 class="mb-4 font-serif text-3xl font-bold text-amber-700 sm:text-4xl">
+            Cherished Memories
+          </h2>
+          <OrnamentalDivider className="mb-6" />
+          <p class="mx-auto max-w-2xl text-lg text-amber-800">
+            A collection of precious moments that capture the essence of Joseph's beautiful life
+          </p>
+        </div>
+
+        {
+          galleryImages.length > 0 ? (
+            <>
+              <div class="mb-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
+                {galleryImages.map((image) => (
+                  <div class="group relative aspect-square overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
+                    <Image
+                      src={image.image_url}
+                      alt={image.alt_text || "Gallery image"}
+                      width={300}
+                      height={300}
+                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    {image.caption && (
+                      <div class="absolute right-0 bottom-0 left-0 p-3 text-sm text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        <p class="line-clamp-2">{image.caption}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <div class="text-center">
+                <button class="h-11 rounded-md border border-amber-500/50 bg-amber-700/80 px-8 text-amber-100 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-amber-600/90 hover:shadow-xl">
+                  <a href="/gallery">
+                    <Camera class="mr-2 h-4 w-4" />
+                    View Full Gallery
+                    <ArrowRight class="ml-2 h-4 w-4" />
+                  </a>
+                </button>
+              </div>
+            </>
+          ) : (
+            <div class="py-12 text-center">
+              <Camera class="mx-auto mb-4 h-16 w-16 text-amber-400/50" />
+              <p class="mb-6 text-lg text-amber-200">Gallery coming soon...</p>
+              <button class="border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 rounded-md border border-amber-400/50 bg-amber-800/20 px-8 text-amber-200 backdrop-blur-sm transition-all duration-300 hover:bg-amber-800/30 hover:text-amber-100">
+                <a href="/gallery">
+                  <Camera class="mr-2 h-4 w-4" />
+                  Visit Gallery
+                </a>
+              </button>
+            </div>
+          )
+        }
+      </div>
+    </section>
+  </div>
 </Layout>
