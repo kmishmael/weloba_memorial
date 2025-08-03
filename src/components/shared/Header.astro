@@ -1,0 +1,124 @@
+---
+import { Heart, Menu, X } from "@lucide/astro"
+
+const { pathname } = Astro.url;
+
+const navigation = [
+  { name: "Home", href: "/" },
+  { name: "Gallery", href: "/gallery" },
+  { name: "Tributes", href: "/tributes" },
+];
+---
+
+<nav class="text-white bg-black top-0 left-0 right-0 z-50 backdrop-blur-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <a href="/" class="flex items-center space-x-2">
+        <Heart class="h-6 w-6 text-amber-600" />h>
+      </a>
+      <span class="font-semibold text-lg">Joseph Weloba</span>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <div class="hidden md:flex space-x-8">
+      {
+        navigation.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "text-sm font-medium transition-colors hover:text-rose-600 py-2",
+              pathname === item.href
+                ? "text-rose-600 border-b-2 border-rose-600"
+                : "text-neutral-100",
+            ]}
+          >
+            {item.name}
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-button"
+      class="md:hidden p-2 rounded-md text-stone-600 hover:text-rose-600 hover:bg-stone-100 transition-colors"
+      aria-label="Toggle menu"
+    >
+
+      <Menu id="menu-icon" class="h-6 w-6" />
+      <X  id="close-icon" class="h-6 w-6" /> 
+     
+    </button>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden border-t border-stone-200 bg-white hidden"
+  >
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      {
+        navigation.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "block px-3 py-3 rounded-md text-base font-medium transition-colors mobile-nav-link",
+              pathname === item.href
+                ? "text-rose-600 bg-rose-50 border-l-4 border-rose-600"
+                : "text-stone-600 hover:text-rose-600 hover:bg-stone-50",
+            ]}
+          >
+            {item.name}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuIcon = document.getElementById("menu-icon");
+  const closeIcon = document.getElementById("close-icon");
+  const mobileNavLinks = document.querySelectorAll(".mobile-nav-link");
+
+  let isOpen = false;
+
+  function toggleMenu() {
+    isOpen = !isOpen;
+
+    if (isOpen) {
+      mobileMenu?.classList.remove("hidden");
+      menuIcon?.classList.add("hidden");
+      closeIcon?.classList.remove("hidden");
+    } else {
+      mobileMenu?.classList.add("hidden");
+      menuIcon?.classList.remove("hidden");
+      closeIcon?.classList.add("hidden");
+    }
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    mobileMenu?.classList.add("hidden");
+    menuIcon?.classList.remove("hidden");
+    closeIcon?.classList.add("hidden");
+  }
+
+  menuButton?.addEventListener("click", toggleMenu);
+
+  mobileNavLinks.forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      isOpen &&
+      !menuButton?.contains(e.target as Node) &&
+      !mobileMenu?.contains(e.target as Node)
+    ) {
+      closeMenu();
+    }
+  });
+</script>

@@ -1,0 +1,14 @@
+---
+interface Props {
+  className?: string
+}
+const { className } = Astro.props
+---
+
+<div class:list={[`ornamental-divider`, className]} >
+  <svg width="40" height="20" viewBox="0 0 40 20" class="text-amber-600 opacity-60">
+    <path
+      d="M20 10c-3-3-9-3-12 0s-3 9 0 12c3-3 9-3 12 0s9-3 12 0-3-9 0-12c-3 3-9 3-12 0z"
+      fill="currentColor"></path>
+  </svg>
+</div>

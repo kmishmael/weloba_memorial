@@ -1,22 +1,96 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "../styles/global.css";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+import { ClientRouter } from "astro:transitions";
+
+import Header from "../components/shared/Header.astro";
+import Footer from "../components/shared/Footer.astro";
+import { AstroSeo, type AstroSeoProps } from "@astrolib/seo";
+import { fade } from "astro:transitions";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+interface Props {
+  seoConfig?: AstroSeoProps;
+  pageTitle?: string;
+
+}
+
+const { seoConfig } = Astro.props;
+
+const site = Astro.site?.href;
+
+// Canonical will be set by astro, just ensure you define site url in astro.config
+const defaultSeoConfig: AstroSeoProps = {
+  title: "Joseph Weloba - One of a Kind | Memorial",
+  noindex: false,
+  description:
+    "A memorial website celebrating the life and legacy of Joseph Weloba",
+  openGraph: {
+    url: site,
+    title: "Joseph Weloba - One of a Kind | Memorial",
+    type: "website",
+    site_name: "Joseph Weloba - One of a Kind | Memorial",
+    description:
+      "A memorial website celebrating the life and legacy of Joseph Weloba",
+    images: [
+      {
+        url: `https://josephweloba.com/weloba.png`,
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    cardType: "summary",
+  },
+  additionalMetaTags: [
+    { name: "og:logo", content: `https://josephweloba.com/weloba.png` },
+  ],
+};
+
+const parsedSeoConfig = {
+  ...defaultSeoConfig,
+  ...seoConfig,
+  openGraph: {
+    ...defaultSeoConfig.openGraph,
+    ...seoConfig?.openGraph,
+  },
+};
+---
+
+<html lang="en" transition:animate={fade({ duration: "0.2s" })}>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fallback if svg is not supported -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Legacy support -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- IOS Devices -->
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+
+    <link rel="canonical" href={canonicalURL} />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <AstroSeo {...parsedSeoConfig} />
+
+  
+  <ClientRouter />
+
+  <body class="font-sans">
+    <div class="min-h-screen bg-gradient-to-br bg-amber-50">
+      <Header />
+      <slot />
+      <Footer />
+    </div>
+  </body>
+</html>
