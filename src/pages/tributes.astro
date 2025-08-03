@@ -1,7 +1,7 @@
 ---
 import OrnamentalDivider from "../components/OrnamentalDivider.astro"
 import tributesData from "../assets/data/tributes.json"
-import { Heart } from "@lucide/astro"
+import { Heart, PenTool } from "@lucide/astro"
 import Layout from "../layouts/Layout.astro"
 
 const tributes = tributesData.tributes || []
@@ -27,9 +27,9 @@ const tributes = tributesData.tributes || []
         <div class="space-y-6 sm:space-y-8">
           {
             tributes.length > 0 ? (
-              <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div class="mx-auto mb-24 max-w-full columns-1 gap-8 gap-y-28 px-4 md:columns-2 lg:columns-3">
                 {tributes.map((tribute) => (
-                  <div class="transform rounded-2xl border-amber-600/70 bg-gradient-to-br from-amber-900/90 to-orange-900/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
+                  <div class="mx-auto my-8 h-fit w-full max-w-[400px] min-w-[200px] transform break-inside-avoid-column rounded-2xl border-amber-600/70 bg-gradient-to-br from-amber-900/90 to-orange-900/80 shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5">
                     <div class="p-6 sm:p-8">
                       <div class="mb-6 flex items-center">
                         <Heart class="mr-3 h-5 w-5 flex-shrink-0 text-amber-400" />
@@ -80,6 +80,29 @@ const tributes = tributesData.tributes || []
               </div>
             )
           }
+        </div>
+        <div class="mb-12 sm:mb-16">
+          <div
+            class="rounded-2xl border border-amber-600/50 bg-gradient-to-br from-amber-900/90 to-orange-900/80 p-8 shadow-2xl backdrop-blur-sm sm:p-10"
+          >
+            <div class="mb-8 text-center">
+              <div class="mb-4 flex items-center justify-center space-x-3">
+                <Heart class="h-6 w-6 text-amber-300" />
+                <h2 class="elegant-script text-2xl font-semibold text-amber-100 sm:text-3xl">
+                  Share Your Memory
+                </h2>
+                <Heart class="h-6 w-6 text-amber-300" />
+              </div>
+              <OrnamentalDivider className="mb-4" />
+              <a
+                href="/tributes"
+                class="mx-auto flex w-fit items-center justify-center border border-amber-400 px-8 py-2 text-amber-300 hover:bg-amber-400 hover:text-gray-900 transition-colors rounded-lg font-semibold text-sm sm:text-base"
+              >
+                <PenTool class="mr-2 h-5 w-5" />
+                Leave a Tribute
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
